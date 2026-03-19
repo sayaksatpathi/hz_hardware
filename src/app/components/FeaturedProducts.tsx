@@ -2,6 +2,13 @@ import { Eye, Plus } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function FeaturedProducts() {
+  const whatsappNumber = '91xxxxxxxxxx';
+
+  const getWhatsAppEnquiryLink = (product: { name: string; category: string; price: number }) => {
+    const message = `Hi! I'm interested in ${product.name} (${product.category}) priced at ₹${product.price.toLocaleString('en-IN')}. Please share availability and best price.`;
+    return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  };
+
   const products = [
     {
       id: 1,
@@ -133,14 +140,26 @@ export function FeaturedProducts() {
 
                 {/* Action Buttons */}
                 <div className="flex gap-2 mt-auto">
-                  <button className="flex-1 h-10 border border-[#1E88E5] text-[#1E88E5] rounded-md font-montserrat font-semibold text-[11px] flex items-center justify-center gap-1 hover:bg-[#1E88E5] hover:text-white transition-colors duration-200">
+                  <a
+                    href={product.image}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 h-10 border border-[#1E88E5] text-[#1E88E5] rounded-md font-montserrat font-semibold text-[11px] flex items-center justify-center gap-1 hover:bg-[#1E88E5] hover:text-white transition-colors duration-200"
+                    aria-label={`View ${product.name}`}
+                  >
                     <Eye className="w-3.5 h-3.5" />
                     <span className="whitespace-nowrap">View</span>
-                  </button>
-                  <button className="flex-1 h-10 bg-[#1E88E5] text-white rounded-md font-montserrat font-semibold text-[11px] flex items-center justify-center gap-1 hover:brightness-110 transition-all duration-150">
+                  </a>
+                  <a
+                    href={getWhatsAppEnquiryLink(product)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 h-10 bg-[#1E88E5] text-white rounded-md font-montserrat font-semibold text-[11px] flex items-center justify-center gap-1 hover:brightness-110 transition-all duration-150"
+                    aria-label={`Enquiry about ${product.name} on WhatsApp`}
+                  >
                     <Plus className="w-3.5 h-3.5" />
                     <span className="whitespace-nowrap">Enquiry</span>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
